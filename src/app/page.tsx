@@ -1,101 +1,340 @@
-import Image from "next/image";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+import { Select, Option, Card, Typography, Progress } from "@material-tailwind/react";
+import Header from "./components/Header";
+import { useEffect, useState } from "react";
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [data, setData] = useState<any>('');
+  useEffect(() => {
+    fetch('/task-data.json')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.log("Error fetching data", error)
+      )
+  }, []);
+  // console.log(data);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const currUsers = data?.metrics?.active_users.current;
+  const totalUsers = data?.metrics?.active_users.total;
+  const queAnswered = data?.metrics?.questions_answered;
+  const avgSessLength = data?.metrics?.average_session_length_seconds;
+  const startKnowledge = data?.metrics?.starting_knowledge_percentage;
+  const currKnowledge = data?.metrics?.current_knowledge_percentage;
+  const knowledgeGain = Math.floor((currKnowledge - startKnowledge) * 100 / (startKnowledge));
+
+  const weakestTopics = data?.topics?.weakest;
+  const strongestTopics = data?.topics?.strongest;
+  const userLeaderBoard = data?.user_leaderboard;
+  const groupsLeaderBoard = data?.groups_leaderboard;
+  return (
+    <div >
+      <Header />
+      <hr />
+      <div className="flex gap-5 w-3/4 mt-4 justify-between ">
+        <Select
+          placeholder={null}
+          onPointerEnterCapture={null}
+          onPointerLeaveCapture={null}
+          label="Timeframe">
+          <Option>Last 7 Days</Option>
+          <Option>This Month</Option>
+          <Option>This Year</Option>
+          <Option>Custom</Option>
+        </Select>
+
+        <Select
+          placeholder={null}
+          onPointerEnterCapture={null}
+          onPointerLeaveCapture={null}
+          label="People">
+          <Option>All</Option>
+        </Select>
+
+        <Select
+          placeholder={null}
+          onPointerEnterCapture={null}
+          onPointerLeaveCapture={null}
+          label="Topic">
+          <Option>All</Option>
+        </Select>
+      </div>
+      <div className="grid grid-cols-2 gap-3 w-2/3">
+        <div className="grid grid-cols-3 gap-3 w-full mt-4">
+          <div>
+            <Card
+              placeholder={null}
+              onPointerEnterCapture={null}
+              onPointerLeaveCapture={null}>
+              <Typography
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                Active Users
+              </Typography>
+              <Typography
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                <b className="font-black text-xl">{currUsers}</b>/{totalUsers}
+              </Typography>
+            </Card>
+          </div>
+          <div>
+            <Card
+              placeholder={null}
+              onPointerEnterCapture={null}
+              onPointerLeaveCapture={null}>
+              <Typography
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                Questions Answered
+              </Typography>
+              <Typography
+                className="text-xl font-black"
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                {queAnswered}
+              </Typography>
+            </Card>
+          </div>
+          <div>
+            <Card
+              placeholder={null}
+              onPointerEnterCapture={null}
+              onPointerLeaveCapture={null}>
+              <Typography
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                Av. Session Length
+              </Typography>
+              <Typography
+                className="text-xl font-black"
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                {avgSessLength} sec {/* need to convert from sec to min */}
+              </Typography>
+            </Card>
+          </div>
+          <div>
+            <Card
+              placeholder={null}
+              onPointerEnterCapture={null}
+              onPointerLeaveCapture={null}>
+              <Typography
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                Starting Knowledge
+              </Typography>
+              <Typography
+                className="text-xl font-black"
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                {startKnowledge}%
+              </Typography>
+            </Card>
+          </div>
+          <div>
+            <Card
+              placeholder={null}
+              onPointerEnterCapture={null}
+              onPointerLeaveCapture={null}>
+              <Typography
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                Current Knowledge
+              </Typography>
+              <Typography
+                className="text-xl font-black"
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                {currKnowledge}%
+              </Typography>
+            </Card>
+          </div>
+          <div>
+            <Card
+              placeholder={null}
+              onPointerEnterCapture={null}
+              onPointerLeaveCapture={null}>
+              <Typography
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                Knowledge Gain
+              </Typography>
+              <Typography
+                className="text-xl font-black"
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                +{knowledgeGain}%
+              </Typography>
+            </Card>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div>
+          <Card
+            placeholder={null}
+            onPointerEnterCapture={null}
+            onPointerLeaveCapture={null}>
+            <div className="flex justify-between">
+              <Typography
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}>
+                Activity
+              </Typography>
+              <Select
+                placeholder={null}
+                onPointerEnterCapture={null}
+                onPointerLeaveCapture={null}
+                label="Month">
+                <Option>Jan</Option>
+              </Select>
+            </div>
+          </Card>
+        </div>
+        <div>
+          <Card
+            placeholder={null}
+            onPointerEnterCapture={null}
+            onPointerLeaveCapture={null}>
+            <Typography
+              placeholder={null}
+              onPointerEnterCapture={null}
+              onPointerLeaveCapture={null}>
+              Weakest Topic
+            </Typography>
+            {weakestTopics?.map((topic, index) => (
+              <>
+                <b key={index}>{topic?.name}</b>
+                <div className="flex">
+                  <Progress
+                    placeholder={null}
+                    onPointerEnterCapture={null}
+                    onPointerLeaveCapture={null}
+                    value={topic?.correct_percentage}
+                    size="md"
+                    color="orange"
+                  />
+                  <Typography
+                    placeholder={null}
+                    onPointerEnterCapture={null}
+                    onPointerLeaveCapture={null}>
+                    {topic?.correct_percentage}% <span className="text-gray-400">Correct</span>
+                  </Typography>
+                </div>
+              </>
+            ))}
+          </Card>
+        </div>
+        <div>
+          <Card
+            placeholder={null}
+            onPointerEnterCapture={null}
+            onPointerLeaveCapture={null}>
+            <Typography
+              placeholder={null}
+              onPointerEnterCapture={null}
+              onPointerLeaveCapture={null}>
+              Strongest Topic
+            </Typography>
+            {
+              strongestTopics?.map((topic, index) => (
+              <>
+                <b>{topic.name}</b>
+                <div>
+                  <Progress
+                    placeholder={null}
+                    onPointerEnterCapture={null}
+                    onPointerLeaveCapture={null}
+                    value={topic?.correct_percentage}
+                    size="md"
+                    color="light-green"
+                  />
+                  <Typography
+                    placeholder={null}
+                    onPointerEnterCapture={null}
+                    onPointerLeaveCapture={null}>
+                    {topic?.correct_percentage}% <span className="text-gray-400">Correct</span>
+                  </Typography>
+                </div>
+              </>
+            ))}
+          </Card>
+        </div>
+        <div>
+          <Card
+            placeholder={null}
+            onPointerEnterCapture={null}
+            onPointerLeaveCapture={null}>
+            <Typography
+              placeholder={null}
+              onPointerEnterCapture={null}
+              onPointerLeaveCapture={null}>
+              User Leaderboard
+            </Typography>
+            <div>
+              {
+                userLeaderBoard?.map((user,index) => (
+                  <div key={index} className="flex gap-4">
+                    <img src={user.image} alt="user-image" className="rounded-full" />
+                    <div>
+                    <Typography
+                       placeholder={null}
+                       onPointerEnterCapture={null}
+                       onPointerLeaveCapture={null}
+                       variant="h6">
+                        {user?.name}
+                      </Typography>
+                    {user?.points} Points - {user?.accuracy_percentage}% Correct
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </Card>
+        </div>
+        <div>
+        <Card
+            placeholder={null}
+            onPointerEnterCapture={null}
+            onPointerLeaveCapture={null}>
+            <Typography
+              placeholder={null}
+              onPointerEnterCapture={null}
+              onPointerLeaveCapture={null}>
+              Groups Leaderboard
+            </Typography>
+            <div>
+              {
+                groupsLeaderBoard?.map((group,index) => (
+                  <>
+                   <Typography 
+                    variant="h6"
+                    placeholder={null}
+                    onPointerEnterCapture={null}
+                    onPointerLeaveCapture={null}>
+                      {group?.group_name}
+                    </Typography>
+                    {group?.points_per_user} Points / User - {group?.accuracy_percentage}% Correct 
+                  </>
+                ))
+              }
+            </div>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }
