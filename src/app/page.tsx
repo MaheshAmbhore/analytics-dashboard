@@ -3,6 +3,10 @@
 import { Select, Option, Card, Typography, Progress } from "@material-tailwind/react";
 import Header from "./components/Header";
 import { useEffect, useState } from "react";
+import Dropdowns from "./components/Dropdowns";
+import Image from "next/image";
+import Sidebar from "./components/Sidebar";
+
 
 
 export default function Home() {
@@ -30,7 +34,9 @@ export default function Home() {
   const groupsLeaderBoard = data?.groups_leaderboard;
   return (
     <div >
+      <Sidebar/>
       <Header />
+      <Dropdowns />
       <hr />
       <div className="flex gap-5 w-3/4 mt-4 justify-between ">
         <Select
@@ -216,25 +222,38 @@ export default function Home() {
               Weakest Topic
             </Typography>
             {weakestTopics?.map((topic, index) => (
-              <>
-                <b key={index}>{topic?.name}</b>
-                <div className="flex">
-                  <Progress
-                    placeholder={null}
-                    onPointerEnterCapture={null}
-                    onPointerLeaveCapture={null}
-                    value={topic?.correct_percentage}
-                    size="md"
-                    color="orange"
-                  />
-                  <Typography
-                    placeholder={null}
-                    onPointerEnterCapture={null}
-                    onPointerLeaveCapture={null}>
-                    {topic?.correct_percentage}% <span className="text-gray-400">Correct</span>
-                  </Typography>
+              <div className="flex mb-4" key={index}>
+                {/* Topic Image */}
+                <img
+                  src={topic?.image || "/placeholder.png"}
+                  alt={topic?.name || "Topic"}
+                  className="rounded-lg w-12 h-8 flex-none"
+                />
+                <div className="ml-4 w-full">
+                  {/* Topic Name */}
+                  <b className="block">{topic?.name || "Unknown Topic"}</b>
+                  <div className="flex items-center">
+                    {/* Progress Bar */}
+                    <Progress
+                      placeholder={null}
+                      onPointerEnterCapture={null}
+                      onPointerLeaveCapture={null}
+                      className="w-full"
+                      value={topic?.correct_percentage || 0}
+                      size="md"
+                      color="orange"
+                    />
+                    <Typography
+                      placeholder={null}
+                      onPointerEnterCapture={null}
+                      onPointerLeaveCapture={null}
+                      className="ml-2 text-sm">
+                      {topic?.correct_percentage || 0}%{" "}
+                      <span className="text-gray-400">Correct</span>
+                    </Typography>
+                  </div>
                 </div>
-              </>
+              </div>
             ))}
           </Card>
         </div>
@@ -251,26 +270,26 @@ export default function Home() {
             </Typography>
             {
               strongestTopics?.map((topic, index) => (
-              <>
-                <b>{topic.name}</b>
-                <div>
-                  <Progress
-                    placeholder={null}
-                    onPointerEnterCapture={null}
-                    onPointerLeaveCapture={null}
-                    value={topic?.correct_percentage}
-                    size="md"
-                    color="light-green"
-                  />
-                  <Typography
-                    placeholder={null}
-                    onPointerEnterCapture={null}
-                    onPointerLeaveCapture={null}>
-                    {topic?.correct_percentage}% <span className="text-gray-400">Correct</span>
-                  </Typography>
-                </div>
-              </>
-            ))}
+                <>
+                  <b>{topic.name}</b>
+                  <div>
+                    <Progress
+                      placeholder={null}
+                      onPointerEnterCapture={null}
+                      onPointerLeaveCapture={null}
+                      value={topic?.correct_percentage}
+                      size="md"
+                      color="light-green"
+                    />
+                    <Typography
+                      placeholder={null}
+                      onPointerEnterCapture={null}
+                      onPointerLeaveCapture={null}>
+                      {topic?.correct_percentage}% <span className="text-gray-400">Correct</span>
+                    </Typography>
+                  </div>
+                </>
+              ))}
           </Card>
         </div>
         <div>
@@ -286,18 +305,18 @@ export default function Home() {
             </Typography>
             <div>
               {
-                userLeaderBoard?.map((user,index) => (
+                userLeaderBoard?.map((user, index) => (
                   <div key={index} className="flex gap-4">
                     <img src={user.image} alt="user-image" className="rounded-full" />
                     <div>
-                    <Typography
-                       placeholder={null}
-                       onPointerEnterCapture={null}
-                       onPointerLeaveCapture={null}
-                       variant="h6">
+                      <Typography
+                        placeholder={null}
+                        onPointerEnterCapture={null}
+                        onPointerLeaveCapture={null}
+                        variant="h6">
                         {user?.name}
                       </Typography>
-                    {user?.points} Points - {user?.accuracy_percentage}% Correct
+                      {user?.points} Points - {user?.accuracy_percentage}% Correct
                     </div>
                   </div>
                 ))
@@ -306,7 +325,7 @@ export default function Home() {
           </Card>
         </div>
         <div>
-        <Card
+          <Card
             placeholder={null}
             onPointerEnterCapture={null}
             onPointerLeaveCapture={null}>
@@ -318,16 +337,16 @@ export default function Home() {
             </Typography>
             <div>
               {
-                groupsLeaderBoard?.map((group,index) => (
+                groupsLeaderBoard?.map((group, index) => (
                   <>
-                   <Typography 
-                    variant="h6"
-                    placeholder={null}
-                    onPointerEnterCapture={null}
-                    onPointerLeaveCapture={null}>
+                    <Typography
+                      variant="h6"
+                      placeholder={null}
+                      onPointerEnterCapture={null}
+                      onPointerLeaveCapture={null}>
                       {group?.group_name}
                     </Typography>
-                    {group?.points_per_user} Points / User - {group?.accuracy_percentage}% Correct 
+                    {group?.points_per_user} Points / User - {group?.accuracy_percentage}% Correct
                   </>
                 ))
               }
