@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 
 const Dropdowns = () => {
     
     const [timeframeOption, setTimeframeOption] = useState(null);
-
+    const [topicOption, setTopicOption] = useState(null);
 
     const timeframeOptions = [
         { value: "last7Days", label: "Last 7 Days" },
@@ -80,16 +80,27 @@ const Dropdowns = () => {
         );
     };
 
+    const topicOptions = [
+        {value: "all", label: "All"},
+        {value: "foodSafety", label: "Food Safety"},
+        {value: "complianceBasicsProcedures", label: "Compliance Basics Procedures"},
+        {value: "companyNetworking", label: "Company Networking"},
+        {value: "covidProtocols", label: "Covid Protocols"},
+        {value: "cyberSecurityBasics", label: "Cyber Security Basics"},
+        {value: "socialMediaPolicies", label: "Social Media Policies"},
+    ]
     const handleChange = (timeframeOption) => {
         setTimeframeOption(timeframeOption);
     };
-
+    const handleTopicChange = (topicOption) => {
+        setTopicOption(topicOption);
+    };
 
     return (
-        <>
+        <div className='grid grid-cols-3 gap-3'>
             <div>
                 <Select
-                    className='w-80'
+                    className=''
                     defaultValue={timeframeOption}
                     onChange={handleChange}
                     options={timeframeOptions}
@@ -100,7 +111,7 @@ const Dropdowns = () => {
             </div>
             <div>
                 <Select
-                    className='w-80'
+                    className=''
                     options={peopleOptions}
                     onChange={handleChange}
                     placeholder="Peoples:"
@@ -109,9 +120,17 @@ const Dropdowns = () => {
                 />
             </div>
             <div>
-
+            <Select
+                    className=''
+                    defaultValue={topicOption}
+                    onChange={handleTopicChange}
+                    options={topicOptions}
+                    placeholder="Topic:"
+                    isClearable={true}
+                    isSearchable
+                />
             </div>
-        </>
+        </div>
     )
 }
 export default Dropdowns;

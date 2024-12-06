@@ -4,8 +4,11 @@ import { Select, Option, Card, Typography, Progress } from "@material-tailwind/r
 import Header from "./components/Header";
 import { useEffect, useState } from "react";
 import Dropdowns from "./components/Dropdowns";
-import Image from "next/image";
 import Sidebar from "./components/Sidebar";
+import Chart from "./components/Chart";
+import Image from "next/image";
+import graphIcon from './images/graph-icon.png'
+
 
 
 
@@ -33,53 +36,29 @@ export default function Home() {
   const userLeaderBoard = data?.user_leaderboard;
   const groupsLeaderBoard = data?.groups_leaderboard;
   return (
-    <div >
+    <div className="flex">
       <Sidebar/>
+      <div className=" m-5 mb-0 w-5/6">
       <Header />
-      <Dropdowns />
       <hr />
-      <div className="flex gap-5 w-3/4 mt-4 justify-between ">
-        <Select
-          placeholder={null}
-          onPointerEnterCapture={null}
-          onPointerLeaveCapture={null}
-          label="Timeframe">
-          <Option>Last 7 Days</Option>
-          <Option>This Month</Option>
-          <Option>This Year</Option>
-          <Option>Custom</Option>
-        </Select>
-
-        <Select
-          placeholder={null}
-          onPointerEnterCapture={null}
-          onPointerLeaveCapture={null}
-          label="People">
-          <Option>All</Option>
-        </Select>
-
-        <Select
-          placeholder={null}
-          onPointerEnterCapture={null}
-          onPointerLeaveCapture={null}
-          label="Topic">
-          <Option>All</Option>
-        </Select>
-      </div>
-      <div className="grid grid-cols-2 gap-3 w-2/3">
-        <div className="grid grid-cols-3 gap-3 w-full mt-4">
+      <Dropdowns />
+      <div className="grid grid-cols-2 gap-3 w-full mt-4">
+        <div className="grid grid-cols-3 gap-2 w-full">
           <div>
             <Card
+              className="w-full h-full p-4"
               placeholder={null}
               onPointerEnterCapture={null}
               onPointerLeaveCapture={null}>
               <Typography
+                className="text-xs"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
                 Active Users
               </Typography>
               <Typography
+                className="justify-center my-auto"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
@@ -89,17 +68,19 @@ export default function Home() {
           </div>
           <div>
             <Card
+              className="w-full h-full p-3 pt-4"
               placeholder={null}
               onPointerEnterCapture={null}
               onPointerLeaveCapture={null}>
               <Typography
+                className="text-xs"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
                 Questions Answered
               </Typography>
               <Typography
-                className="text-xl font-black"
+                className="text-xl font-black my-auto"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
@@ -109,17 +90,19 @@ export default function Home() {
           </div>
           <div>
             <Card
+              className="w-full h-full p-4"
               placeholder={null}
               onPointerEnterCapture={null}
               onPointerLeaveCapture={null}>
               <Typography
+                className="text-xs"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
                 Av. Session Length
               </Typography>
               <Typography
-                className="text-xl font-black"
+                className="text-xl font-black my-auto"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
@@ -129,89 +112,80 @@ export default function Home() {
           </div>
           <div>
             <Card
+              className="w-full h-full p-4"
               placeholder={null}
               onPointerEnterCapture={null}
               onPointerLeaveCapture={null}>
               <Typography
+                className="text-xs"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
                 Starting Knowledge
               </Typography>
               <Typography
-                className="text-xl font-black"
+                className="text-xl font-black my-auto"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
                 {startKnowledge}%
               </Typography>
+              <Image src={graphIcon} alt="graph-icon" className="m-auto"/>
             </Card>
           </div>
           <div>
             <Card
+              className="w-full h-full p-4"
               placeholder={null}
               onPointerEnterCapture={null}
               onPointerLeaveCapture={null}>
               <Typography
+                className="text-xs"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
                 Current Knowledge
               </Typography>
               <Typography
-                className="text-xl font-black"
+                className="text-xl font-black my-auto"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
                 {currKnowledge}%
               </Typography>
+              <Image src={graphIcon} alt="graph-icon" className="m-auto"/>
             </Card>
           </div>
           <div>
             <Card
+              className="w-full h-full p-4"
               placeholder={null}
               onPointerEnterCapture={null}
               onPointerLeaveCapture={null}>
               <Typography
+                className="text-xs"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
                 Knowledge Gain
               </Typography>
               <Typography
-                className="text-xl font-black"
+                className="text-xl font-black my-auto"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
                 +{knowledgeGain}%
               </Typography>
+              <Image src={graphIcon} alt="graph-icon" className="m-auto"/>
             </Card>
           </div>
         </div>
         <div>
-          <Card
-            placeholder={null}
-            onPointerEnterCapture={null}
-            onPointerLeaveCapture={null}>
-            <div className="flex justify-between">
-              <Typography
-                placeholder={null}
-                onPointerEnterCapture={null}
-                onPointerLeaveCapture={null}>
-                Activity
-              </Typography>
-              <Select
-                placeholder={null}
-                onPointerEnterCapture={null}
-                onPointerLeaveCapture={null}
-                label="Month">
-                <Option>Jan</Option>
-              </Select>
-            </div>
-          </Card>
+          <Chart/>
         </div>
         <div>
           <Card
+            className="p-5 h-full"
             placeholder={null}
             onPointerEnterCapture={null}
             onPointerLeaveCapture={null}>
@@ -227,7 +201,7 @@ export default function Home() {
                 <img
                   src={topic?.image || "/placeholder.png"}
                   alt={topic?.name || "Topic"}
-                  className="rounded-lg w-12 h-8 flex-none"
+                  className="rounded-lg w-12 h-8 flex-none m-auto"
                 />
                 <div className="ml-4 w-full">
                   {/* Topic Name */}
@@ -247,7 +221,7 @@ export default function Home() {
                       placeholder={null}
                       onPointerEnterCapture={null}
                       onPointerLeaveCapture={null}
-                      className="ml-2 text-sm">
+                      className="ml-2 text-sm inline-flex">
                       {topic?.correct_percentage || 0}%{" "}
                       <span className="text-gray-400">Correct</span>
                     </Typography>
@@ -259,6 +233,7 @@ export default function Home() {
         </div>
         <div>
           <Card
+            className="p-5 h-full"
             placeholder={null}
             onPointerEnterCapture={null}
             onPointerLeaveCapture={null}>
@@ -266,38 +241,52 @@ export default function Home() {
               placeholder={null}
               onPointerEnterCapture={null}
               onPointerLeaveCapture={null}>
-              Strongest Topic
+              Strogest Topic
             </Typography>
-            {
-              strongestTopics?.map((topic, index) => (
-                <>
-                  <b>{topic.name}</b>
-                  <div>
+            {strongestTopics?.map((topic, index) => (
+              <div className="flex mb-4" key={index}>
+                {/* Topic Image */}
+                <img
+                  src={topic?.image || "/placeholder.png"}
+                  alt={topic?.name || "Topic"}
+                  className="rounded-lg w-12 h-8 flex-none m-auto"
+                />
+                <div className="ml-4 w-full">
+                  {/* Topic Name */}
+                  <b className="block">{topic?.name || "Unknown Topic"}</b>
+                  <div className="flex items-center">
+                    {/* Progress Bar */}
                     <Progress
                       placeholder={null}
                       onPointerEnterCapture={null}
                       onPointerLeaveCapture={null}
-                      value={topic?.correct_percentage}
+                      className="w-full"
+                      value={topic?.correct_percentage || 0}
                       size="md"
                       color="light-green"
                     />
                     <Typography
                       placeholder={null}
                       onPointerEnterCapture={null}
-                      onPointerLeaveCapture={null}>
-                      {topic?.correct_percentage}% <span className="text-gray-400">Correct</span>
+                      onPointerLeaveCapture={null}
+                      className="ml-2 text-sm inline-flex">
+                      {topic?.correct_percentage || 0}%{" "}
+                      <span className="text-gray-400">Correct</span>
                     </Typography>
                   </div>
-                </>
-              ))}
+                </div>
+              </div>
+            ))}
           </Card>
         </div>
         <div>
           <Card
+            className="p-5 h-full"
             placeholder={null}
             onPointerEnterCapture={null}
             onPointerLeaveCapture={null}>
             <Typography
+              className="mb-5"
               placeholder={null}
               onPointerEnterCapture={null}
               onPointerLeaveCapture={null}>
@@ -306,7 +295,7 @@ export default function Home() {
             <div>
               {
                 userLeaderBoard?.map((user, index) => (
-                  <div key={index} className="flex gap-4">
+                  <div key={index} className="flex gap-4 m-4 mb-0">
                     <img src={user.image} alt="user-image" className="rounded-full" />
                     <div>
                       <Typography
@@ -326,10 +315,12 @@ export default function Home() {
         </div>
         <div>
           <Card
+            className="h-full p-5"
             placeholder={null}
             onPointerEnterCapture={null}
             onPointerLeaveCapture={null}>
             <Typography
+              className="mb-5"
               placeholder={null}
               onPointerEnterCapture={null}
               onPointerLeaveCapture={null}>
@@ -338,7 +329,7 @@ export default function Home() {
             <div>
               {
                 groupsLeaderBoard?.map((group, index) => (
-                  <>
+                  <div key={index} className="m-4 mb-0">
                     <Typography
                       variant="h6"
                       placeholder={null}
@@ -347,13 +338,14 @@ export default function Home() {
                       {group?.group_name}
                     </Typography>
                     {group?.points_per_user} Points / User - {group?.accuracy_percentage}% Correct
-                  </>
+                  </div>
                 ))
               }
             </div>
           </Card>
         </div>
       </div>
+      </div>        
     </div>
   );
 }

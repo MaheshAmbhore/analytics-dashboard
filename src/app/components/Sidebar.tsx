@@ -7,13 +7,14 @@ import peopleIcon from "../images/people-icon.png";
 import activiesIcon from "../images/activities-icon.png";
 import getStartedIcon from "../images/get-started.png";
 import settingsIcon from "../images/settings-icon.png";
+import userIcon from "../images/User.svg";
 
 const Sidebar = () => {
 
     return(
         <>
             <Card
-                className="h-[calc(100vh)] w-full max-w-[18rem] p-4 shadow-xl shadow-blue-gray-900/5"
+                className="w-1/5 max-w-[18rem] p-4 shadow-xl shadow-blue-gray-900/5"
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}
@@ -27,6 +28,7 @@ const Sidebar = () => {
                     onPointerEnterCapture={null}
                     onPointerLeaveCapture={null}>
                     <ListItem
+                        className="w-4/5"
                         placeholder={null}
                         onPointerEnterCapture={null}
                         onPointerLeaveCapture={null}>
@@ -39,6 +41,7 @@ const Sidebar = () => {
                             Reports
                     </ListItem>
                     <ListItem
+                        className="w-4/5"
                         placeholder={null}
                         onPointerEnterCapture={null}
                         onPointerLeaveCapture={null}>
@@ -51,6 +54,7 @@ const Sidebar = () => {
                             Library
                     </ListItem>
                     <ListItem
+                        className="w-4/5"
                         placeholder={null}
                         onPointerEnterCapture={null}
                         onPointerLeaveCapture={null}>
@@ -63,6 +67,7 @@ const Sidebar = () => {
                             People
                     </ListItem>
                     <ListItem
+                        className="w-4/5"
                         placeholder={null}
                         onPointerEnterCapture={null}
                         onPointerLeaveCapture={null}>
@@ -83,6 +88,7 @@ const Sidebar = () => {
                         Support
                     </Typography>
                     <ListItem
+                        className="w-4/5"
                         placeholder={null}
                         onPointerEnterCapture={null}
                         onPointerLeaveCapture={null}>
@@ -95,6 +101,7 @@ const Sidebar = () => {
                             Get Started
                     </ListItem>
                     <ListItem
+                        className="w-4/5"
                         placeholder={null}
                         onPointerEnterCapture={null}
                         onPointerLeaveCapture={null}>
@@ -109,10 +116,12 @@ const Sidebar = () => {
                 </List>
 
                 <CardFooter
+                    className=""
                     placeholder={null}
                     onPointerEnterCapture={null}
                     onPointerLeaveCapture={null}>
                         <hr/>
+                        <Image src={userIcon} alt="user-icon"/>
                         <Typography
                             placeholder={null}
                             onPointerEnterCapture={null}
@@ -122,9 +131,11 @@ const Sidebar = () => {
                                 Sam Wheeler
                         </Typography>
                         <Typography
+                            className="w-2/4"
                             placeholder={null}
                             onPointerEnterCapture={null}
-                            onPointerLeaveCapture={null}>
+                            onPointerLeaveCapture={null}
+                            variant="small">
                                 samwheeler@example.com
                         </Typography>
                 </CardFooter>
