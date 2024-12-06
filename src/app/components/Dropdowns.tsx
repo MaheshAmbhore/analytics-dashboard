@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from 'react';
 import Select from 'react-select';
 
 const Dropdowns = () => {
@@ -31,7 +32,7 @@ const Dropdowns = () => {
         }
     ]
 
-    const CustomOption = (props) => {
+    const CustomOption = (props:any) => {
         const { data, isSelected, innerRef, innerProps } = props;
 
         return (
@@ -89,18 +90,18 @@ const Dropdowns = () => {
         {value: "cyberSecurityBasics", label: "Cyber Security Basics"},
         {value: "socialMediaPolicies", label: "Social Media Policies"},
     ]
-    const handleChange = (timeframeOption) => {
+    const handleChange = (timeframeOption:any) => {
         setTimeframeOption(timeframeOption);
     };
-    const handleTopicChange = (topicOption) => {
+    const handleTopicChange = (topicOption:any) => {
         setTopicOption(topicOption);
     };
 
     return (
         <div className='grid grid-cols-3 gap-3'>
-            <div>
+            <div className='rounded-full'>
                 <Select
-                    className=''
+                    
                     defaultValue={timeframeOption}
                     onChange={handleChange}
                     options={timeframeOptions}

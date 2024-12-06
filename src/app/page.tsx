@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { Select, Option, Card, Typography, Progress } from "@material-tailwind/react";
+import {Card, Typography, Progress } from "@material-tailwind/react";
 import Header from "./components/Header";
 import { useEffect, useState } from "react";
 import Dropdowns from "./components/Dropdowns";
 import Sidebar from "./components/Sidebar";
 import Chart from "./components/Chart";
 import Image from "next/image";
-import graphIcon from './images/graph-icon.png'
-
-
+import graphIcon from './images/graph-icon.png';
+import upTriangle from './images/up-triangle.png';
+import downTriangle from './images/down-triangle.png'
 
 
 export default function Home() {
@@ -21,7 +21,6 @@ export default function Home() {
       .catch(error => console.log("Error fetching data", error)
       )
   }, []);
-  // console.log(data);
 
   const currUsers = data?.metrics?.active_users.current;
   const totalUsers = data?.metrics?.active_users.total;
@@ -30,11 +29,18 @@ export default function Home() {
   const startKnowledge = data?.metrics?.starting_knowledge_percentage;
   const currKnowledge = data?.metrics?.current_knowledge_percentage;
   const knowledgeGain = Math.floor((currKnowledge - startKnowledge) * 100 / (startKnowledge));
-
   const weakestTopics = data?.topics?.weakest;
   const strongestTopics = data?.topics?.strongest;
   const userLeaderBoard = data?.user_leaderboard;
   const groupsLeaderBoard = data?.groups_leaderboard;
+
+  const convertSecondsToReadableTime = (totalSeconds:any) => {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+  
+    return `${minutes}m ${seconds}s`;
+  };
+
   return (
     <div className="flex">
       <Sidebar/>
@@ -106,7 +112,7 @@ export default function Home() {
                 placeholder={null}
                 onPointerEnterCapture={null}
                 onPointerLeaveCapture={null}>
-                {avgSessLength} sec {/* need to convert from sec to min */}
+                {convertSecondsToReadableTime(avgSessLength)}
               </Typography>
             </Card>
           </div>
@@ -195,7 +201,7 @@ export default function Home() {
               onPointerLeaveCapture={null}>
               Weakest Topic
             </Typography>
-            {weakestTopics?.map((topic, index) => (
+            {weakestTopics?.map((topic:any, index:any) => (
               <div className="flex mb-4" key={index}>
                 {/* Topic Image */}
                 <img
@@ -243,7 +249,7 @@ export default function Home() {
               onPointerLeaveCapture={null}>
               Strogest Topic
             </Typography>
-            {strongestTopics?.map((topic, index) => (
+            {strongestTopics?.map((topic:any, index:any) => (
               <div className="flex mb-4" key={index}>
                 {/* Topic Image */}
                 <img
@@ -294,8 +300,9 @@ export default function Home() {
             </Typography>
             <div>
               {
-                userLeaderBoard?.map((user, index) => (
-                  <div key={index} className="flex gap-4 m-4 mb-0">
+                userLeaderBoard?.map((user:any, index:any) => (
+                  <div key={index} className="flex justify-between m-4 mb-0">
+                    <div className="flex gap-4">
                     <img src={user.image} alt="user-image" className="rounded-full" />
                     <div>
                       <Typography
@@ -307,9 +314,18 @@ export default function Home() {
                       </Typography>
                       {user?.points} Points - {user?.accuracy_percentage}% Correct
                     </div>
+                    </div>
+                    {
+                      <div className="flex gap-2">
+                      <p>{index+1}</p>
+                      {(user?.accuracy_percentage > user?.previous_accuracy_percentage) ? 
+                      <Image src={upTriangle} alt="up-triangle" className="w-6 h-6"/>: <Image src={downTriangle} alt="down-triangle" className="w-6 h-6"/>}
+                      </div>
+                    }
                   </div>
                 ))
               }
+              
             </div>
           </Card>
         </div>
@@ -328,8 +344,9 @@ export default function Home() {
             </Typography>
             <div>
               {
-                groupsLeaderBoard?.map((group, index) => (
-                  <div key={index} className="m-4 mb-0">
+                groupsLeaderBoard?.map((group:any, index:any) => (
+                  <div key={index} className="m-4 mb-0 flex justify-between ">
+                    <div>
                     <Typography
                       variant="h6"
                       placeholder={null}
@@ -338,6 +355,14 @@ export default function Home() {
                       {group?.group_name}
                     </Typography>
                     {group?.points_per_user} Points / User - {group?.accuracy_percentage}% Correct
+                    </div>
+                    {
+                    <div className="flex gap-2">
+                    <p>{index+1}</p>
+                    {(group?.accuracy_percentage > group?.previous_accuracy_percentage) ? 
+                    <Image src={upTriangle} alt="up-triangle" className="w-6 h-6"/>: <Image src={downTriangle} alt="down-triangle" className="w-6 h-6"/>}
+                    </div>
+                  }
                   </div>
                 ))
               }

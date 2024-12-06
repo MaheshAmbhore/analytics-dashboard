@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, useRef } from "react";
 import React from "react";
 import { Bar } from "react-chartjs-2";
@@ -16,8 +17,8 @@ import Select from "react-select";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const Chart = () => {
-  const [data, setData] = useState(null);
-  const [selectedMonths, setSelectedMonths] = useState([{ value: "All", label: "All" }]);
+  const [data, setData] = useState<any>(null);
+  const [selectedMonths, setSelectedMonths] = useState<any>([{ value: "All", label: "All" }]);
   const chartRef = useRef(null); // Ref for accessing the chart instance
 
   useEffect(() => {
@@ -36,17 +37,17 @@ const Chart = () => {
     return <p>Loading chart...</p>;
   }
 
-  const labels = data.activity.monthly.map((item) => item.month.toUpperCase());
-  const values = data.activity.monthly.map((item) => item.value);
+  const labels = data.activity.monthly.map((item:any) => item.month.toUpperCase());
+  const values = data.activity.monthly.map((item:any) => item.value);
 
   // Handle filtering logic
   const isAllSelected =
     selectedMonths.length === 1 && selectedMonths[0].value === "All";
   const filteredLabels = isAllSelected
     ? labels
-    : selectedMonths.map((item) => item.value);
+    : selectedMonths.map((item:any) => item.value);
   const filteredValues = filteredLabels.map(
-    (label) => values[labels.indexOf(label)]
+    (label: any) => values[labels.indexOf(label)]
   );
 
   const chartData = {
@@ -55,7 +56,7 @@ const Chart = () => {
       {
         label: "Monthly Activity",
         data: filteredValues,
-        backgroundColor: (context) => {
+        backgroundColor: (context:any) => {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
 
@@ -123,7 +124,7 @@ const Chart = () => {
   // Format labels for Select component, including "All"
   const selectOptions = [
     { value: "All", label: "All" },
-    ...labels.map((label) => ({ value: label, label })),
+    ...labels.map((label:any) => ({ value: label, label })),
   ];
 
   return (
