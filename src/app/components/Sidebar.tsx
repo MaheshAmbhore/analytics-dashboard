@@ -1,6 +1,5 @@
 import { Card, CardFooter, List, ListItem, ListItemPrefix, Typography } from "@material-tailwind/react"
 import Image from "next/image";
-import teslaIcon from "../images/TESLA.svg";
 import reportsIcon from "../images/reports-icon.png";
 import libraryIcon from "../images/library-icon.png";
 import peopleIcon from "../images/people-icon.png";
@@ -8,6 +7,7 @@ import activiesIcon from "../images/activities-icon.png";
 import getStartedIcon from "../images/get-started.png";
 import settingsIcon from "../images/settings-icon.png";
 import userIcon from "../images/User.svg";
+import teslaIcon from "../images/Tesla.svg";
 
 const Sidebar = () => {
 
