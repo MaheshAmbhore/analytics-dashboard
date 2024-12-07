@@ -27,7 +27,7 @@ const Sidebar = () => {
                             placeholder={null}
                             onPointerEnterCapture={null}
                             onPointerLeaveCapture={null}
-                            >
+                        >
                             <ListItem
                                 className="w-4/5"
                                 placeholder={null}
@@ -117,33 +117,33 @@ const Sidebar = () => {
                         </List>
                     </div>
                 </div>
-                    <div>
-                        <CardFooter
-                            className=""
+                <div>
+                    <CardFooter
+                        className=""
+                        placeholder={null}
+                        onPointerEnterCapture={null}
+                        onPointerLeaveCapture={null}>
+                        <hr className="mb-3" />
+                        <Image src={userIcon} alt="user-icon" />
+                        <Typography
                             placeholder={null}
                             onPointerEnterCapture={null}
-                            onPointerLeaveCapture={null}>
-                            <hr className="mb-3"/>
-                            <Image src={userIcon} alt="user-icon" />
-                            <Typography
-                                placeholder={null}
-                                onPointerEnterCapture={null}
-                                onPointerLeaveCapture={null}
-                                variant="h6"
-                                color="black">
-                                Sam Wheeler
-                            </Typography>
-                            <Typography
-                                className="w-2/4"
-                                placeholder={null}
-                                onPointerEnterCapture={null}
-                                onPointerLeaveCapture={null}
-                                variant="small">
-                                samwheeler@example.com
-                            </Typography>
-                        </CardFooter>
-                    </div>
-                
+                            onPointerLeaveCapture={null}
+                            variant="h6"
+                            color="black">
+                            Sam Wheeler
+                        </Typography>
+                        <Typography
+                            className="w-2/4"
+                            placeholder={null}
+                            onPointerEnterCapture={null}
+                            onPointerLeaveCapture={null}
+                            variant="small">
+                            samwheeler@example.com
+                        </Typography>
+                    </CardFooter>
+                </div>
+
             </Card>
         </>
     )

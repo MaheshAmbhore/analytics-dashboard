@@ -13,13 +13,12 @@ import {
 import { Card, Typography } from "@material-tailwind/react";
 import Select from "react-select";
 
-// Register required Chart.js components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const Chart = () => {
   const [data, setData] = useState<any>(null);
   const [selectedMonths, setSelectedMonths] = useState<any>([{ value: "All", label: "All" }]);
-  const chartRef = useRef(null); // Ref for accessing the chart instance
+  const chartRef = useRef(null);
 
   useEffect(() => {
     fetch("/task-data.json")
@@ -37,15 +36,14 @@ const Chart = () => {
     return <p>Loading chart...</p>;
   }
 
-  const labels = data.activity.monthly.map((item:any) => item.month.toUpperCase());
-  const values = data.activity.monthly.map((item:any) => item.value);
+  const labels = data.activity.monthly.map((item: any) => item.month.toUpperCase());
+  const values = data.activity.monthly.map((item: any) => item.value);
 
-  // Handle filtering logic
   const isAllSelected =
     selectedMonths.length === 1 && selectedMonths[0].value === "All";
   const filteredLabels = isAllSelected
     ? labels
-    : selectedMonths.map((item:any) => item.value);
+    : selectedMonths.map((item: any) => item.value);
   const filteredValues = filteredLabels.map(
     (label: any) => values[labels.indexOf(label)]
   );
@@ -56,7 +54,7 @@ const Chart = () => {
       {
         label: "Monthly Activity",
         data: filteredValues,
-        backgroundColor: (context:any) => {
+        backgroundColor: (context: any) => {
           const chart = context.chart;
           const { ctx, chartArea } = chart;
 
@@ -121,10 +119,9 @@ const Chart = () => {
     },
   };
 
-  // Format labels for Select component, including "All"
   const selectOptions = [
     { value: "All", label: "All" },
-    ...labels.map((label:any) => ({ value: label, label })),
+    ...labels.map((label: any) => ({ value: label, label })),
   ];
 
   return (
@@ -133,31 +130,31 @@ const Chart = () => {
       placeholder={null}
       onPointerEnterCapture={null}
       onPointerLeaveCapture={null}>
-      <div className="flex justify-between "> 
-      <Typography
-        className="mb-4 text-center"
-        placeholder={null}
-        onPointerEnterCapture={null}
-        onPointerLeaveCapture={null}
-        variant="paragraph">
-        Activity
-      </Typography>
-      <Select
-        className="w-48 mb-6"
-        isMulti
-        options={selectOptions}
-        placeholder="Months"
-        value={selectedMonths}
-        onChange={(selected) => {
-          if (selected.some((item) => item.value === "All")) {
-            setSelectedMonths([{ value: "all", label: "All" }]);
-          } else {
-            setSelectedMonths(selected);
-          }
-        }}
-      />
-      </div> 
-      <hr/>
+      <div className="flex justify-between ">
+        <Typography
+          className="mb-4 text-center"
+          placeholder={null}
+          onPointerEnterCapture={null}
+          onPointerLeaveCapture={null}
+          variant="paragraph">
+          Activity
+        </Typography>
+        <Select
+          className="w-48 mb-6"
+          isMulti
+          options={selectOptions}
+          placeholder="Months"
+          value={selectedMonths}
+          onChange={(selected) => {
+            if (selected.some((item) => item.value === "All")) {
+              setSelectedMonths([{ value: "all", label: "All" }]);
+            } else {
+              setSelectedMonths(selected);
+            }
+          }}
+        />
+      </div>
+      <hr />
       <div style={{ width: "100%", margin: "auto" }}>
         <Bar ref={chartRef} data={chartData} options={options} />
       </div>

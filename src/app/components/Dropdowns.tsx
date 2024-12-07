@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Select from 'react-select';
 
 const Dropdowns = () => {
-    
+
     const [timeframeOption, setTimeframeOption] = useState(null);
     const [topicOption, setTopicOption] = useState(null);
 
@@ -32,7 +32,7 @@ const Dropdowns = () => {
         }
     ]
 
-    const CustomOption = (props:any) => {
+    const CustomOption = (props: any) => {
         const { data, isSelected, innerRef, innerProps } = props;
 
         return (
@@ -46,7 +46,6 @@ const Dropdowns = () => {
                     cursor: "pointer",
                 }}
             >
-                {/* Disk Checkbox */}
                 <div
                     style={{
                         height: "16px",
@@ -71,9 +70,7 @@ const Dropdowns = () => {
                         />
                     )}
                 </div>
-                {/* Label */}
                 <span style={{ flexGrow: 1 }}>{data.label}</span>
-                {/* Count */}
                 {data.count !== undefined && (
                     <span style={{ fontSize: "0.85em", color: "#888" }}>({data.count})</span>
                 )}
@@ -82,18 +79,18 @@ const Dropdowns = () => {
     };
 
     const topicOptions = [
-        {value: "all", label: "All"},
-        {value: "foodSafety", label: "Food Safety"},
-        {value: "complianceBasicsProcedures", label: "Compliance Basics Procedures"},
-        {value: "companyNetworking", label: "Company Networking"},
-        {value: "covidProtocols", label: "Covid Protocols"},
-        {value: "cyberSecurityBasics", label: "Cyber Security Basics"},
-        {value: "socialMediaPolicies", label: "Social Media Policies"},
+        { value: "all", label: "All" },
+        { value: "foodSafety", label: "Food Safety" },
+        { value: "complianceBasicsProcedures", label: "Compliance Basics Procedures" },
+        { value: "companyNetworking", label: "Company Networking" },
+        { value: "covidProtocols", label: "Covid Protocols" },
+        { value: "cyberSecurityBasics", label: "Cyber Security Basics" },
+        { value: "socialMediaPolicies", label: "Social Media Policies" },
     ]
-    const handleChange = (timeframeOption:any) => {
+    const handleChange = (timeframeOption: any) => {
         setTimeframeOption(timeframeOption);
     };
-    const handleTopicChange = (topicOption:any) => {
+    const handleTopicChange = (topicOption: any) => {
         setTopicOption(topicOption);
     };
 
@@ -101,7 +98,7 @@ const Dropdowns = () => {
         <div className='grid grid-cols-3 gap-3'>
             <div className='rounded-full'>
                 <Select
-                    
+
                     defaultValue={timeframeOption}
                     onChange={handleChange}
                     options={timeframeOptions}
@@ -116,12 +113,12 @@ const Dropdowns = () => {
                     options={peopleOptions}
                     onChange={handleChange}
                     placeholder="Peoples:"
-                    isMulti 
+                    isMulti
                     components={{ Option: CustomOption }}
                 />
             </div>
             <div>
-            <Select
+                <Select
                     className=''
                     defaultValue={topicOption}
                     onChange={handleTopicChange}
